@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RejoindrePartie">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/code"
+        android:layout_width="233dp"
+        android:layout_height="45dp"
+        android:hint="Code"
+        tools:layout_editor_absoluteX="89dp"
+        tools:layout_editor_absoluteY="238dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ENTREZ LE CODE PARTIE"
+        android:textColor="#000000"
+        tools:layout_editor_absoluteX="125dp"
+        tools:layout_editor_absoluteY="187dp" />
+
+    <Button
+        android:id="@+id/valider"
+        android:layout_width="237dp"
+        android:layout_height="42dp"
+        android:background="#E92727"
+        android:clickable="false"
+        android:text="Valider"
+        android:textColor="#FFFFFF"
+        tools:layout_editor_absoluteX="87dp"
+        tools:layout_editor_absoluteY="386dp" />
+
+    <Button
+        android:id="@+id/Acc"
+        android:layout_width="237dp"
+        android:layout_height="42dp"
+        android:background="#E92727"
+        android:text="REVENIR A L'ACCUEIL"
+        android:textColor="#FFFFFF"
+        tools:layout_editor_absoluteX="87dp"
+        tools:layout_editor_absoluteY="481dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="- OU -"
+        tools:layout_editor_absoluteX="188dp"
+        tools:layout_editor_absoluteY="450dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
