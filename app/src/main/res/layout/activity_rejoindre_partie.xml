@@ -7,49 +7,85 @@
     tools:context=".RejoindrePartie">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/code"
+        android:id="@+id/codeRejoindre"
         android:layout_width="233dp"
         android:layout_height="45dp"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="89dp"
         android:hint="Code"
-        tools:layout_editor_absoluteX="89dp"
-        tools:layout_editor_absoluteY="238dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="187dp"
         android:text="ENTREZ LE CODE PARTIE"
         android:textColor="#000000"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="187dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="125dp" />
 
     <Button
-        android:id="@+id/valider"
+        android:id="@+id/rejoindrePartie"
         android:layout_width="237dp"
         android:layout_height="42dp"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginBottom="28dp"
         android:background="#E92727"
         android:clickable="false"
         android:text="Valider"
         android:textColor="#FFFFFF"
-        tools:layout_editor_absoluteX="87dp"
-        tools:layout_editor_absoluteY="386dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codeRejoindre" />
 
     <Button
-        android:id="@+id/Acc"
+        android:id="@+id/retourAccueil"
         android:layout_width="237dp"
         android:layout_height="42dp"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginBottom="233dp"
         android:background="#E92727"
         android:text="REVENIR A L'ACCUEIL"
         android:textColor="#FFFFFF"
-        tools:layout_editor_absoluteX="87dp"
-        tools:layout_editor_absoluteY="481dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="188dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="189dp"
         android:text="- OU -"
-        tools:layout_editor_absoluteX="188dp"
-        tools:layout_editor_absoluteY="450dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rejoindrePartie" />
+
+    <TextView
+        android:id="@+id/erreurCodeRejoindre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="134dp"
+        android:text="Code vide ou incorrect"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codeRejoindre" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

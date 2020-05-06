@@ -7,30 +7,42 @@
     tools:context=".Menu">
 
     <Button
-        android:id="@+id/replay"
+        android:id="@+id/creer"
         android:layout_width="237dp"
         android:layout_height="42dp"
+        android:layout_marginStart="87dp"
+        android:layout_marginTop="268dp"
+        android:layout_marginEnd="87dp"
         android:background="#E92727"
         android:text="CREER UNE PARTIE"
         android:textColor="#FFFFFF"
-        tools:layout_editor_absoluteX="87dp"
-        tools:layout_editor_absoluteY="268dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/Acc"
+        android:id="@+id/rejoindre"
         android:layout_width="237dp"
         android:layout_height="42dp"
+        android:layout_marginStart="87dp"
+        android:layout_marginEnd="87dp"
+        android:layout_marginBottom="320dp"
         android:background="#E92727"
         android:text="REJOINDRE UNE PARTIE"
         android:textColor="#FFFFFF"
-        tools:layout_editor_absoluteX="87dp"
-        tools:layout_editor_absoluteY="369dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="188dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="189dp"
         android:text="- OU -"
-        tools:layout_editor_absoluteX="188dp"
-        tools:layout_editor_absoluteY="336dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/creer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

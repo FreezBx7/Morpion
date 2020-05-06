@@ -17,9 +17,10 @@
         android:id="@+id/button"
         android:layout_width="130dp"
         android:layout_height="130dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="149dp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="10dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button"
@@ -77,5 +78,29 @@
         app:srcCompat="@drawable/times"
         tools:layout_editor_absoluteX="150dp"
         tools:layout_editor_absoluteY="160dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="C'est au tour du joueur :"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="69dp" />
+
+    <TextView
+        android:id="@+id/tourJoueur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="211dp"
+        tools:layout_editor_absoluteY="67dp" />
+
+    <Button
+        android:id="@+id/quitterPartie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="quitter la partie"
+        tools:layout_editor_absoluteX="129dp"
+        tools:layout_editor_absoluteY="613dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

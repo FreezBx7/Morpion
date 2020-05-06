@@ -10,23 +10,51 @@
         android:id="@+id/waitingtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="192dp"
+        android:layout_marginEnd="120dp"
         android:text="EN ATTENTE D'UN JOUEUR"
-        tools:layout_editor_absoluteX="120dp"
-        tools:layout_editor_absoluteY="192dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="107dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="108dp"
         android:text="PARTAGER LE CODE SUIVANT :"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="245dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/waitingtext" />
 
     <TextView
-        android:id="@+id/code"
+        android:id="@+id/codeRejoindre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="173dp"
+        android:layout_marginTop="47dp"
+        android:layout_marginEnd="190dp"
         android:text="123456"
-        tools:layout_editor_absoluteX="173dp"
-        tools:layout_editor_absoluteY="311dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/share" />
+
+    <Button
+        android:id="@+id/annuler"
+        android:layout_width="254dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="94dp"
+        android:layout_marginEnd="79dp"
+        android:layout_marginBottom="262dp"
+        android:background="#E92727"
+        android:text="Annuler la partie"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codeRejoindre" />
 </androidx.constraintlayout.widget.ConstraintLayout>

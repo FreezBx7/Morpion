@@ -7,7 +7,7 @@
     tools:context=".gagner">
 
     <Button
-        android:id="@+id/replay"
+        android:id="@+id/creer"
         android:layout_width="237dp"
         android:layout_height="42dp"
         android:background="#E92727"
@@ -17,7 +17,7 @@
         tools:layout_editor_absoluteY="268dp" />
 
     <Button
-        android:id="@+id/Acc"
+        android:id="@+id/retourAccueil"
         android:layout_width="237dp"
         android:layout_height="42dp"
         android:background="#E92727"
