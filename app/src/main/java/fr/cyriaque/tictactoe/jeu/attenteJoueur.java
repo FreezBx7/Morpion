@@ -129,7 +129,7 @@ public class attenteJoueur extends AppCompatActivity {
         Document doc = new Document();
         doc.append("_id",objectId);
 
-        return creationPartie.find(doc).first();
+        return creationPartie.findOne(doc);
     }
 
     private void deletePartie(ObjectId partieID){

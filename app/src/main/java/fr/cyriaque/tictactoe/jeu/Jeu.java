@@ -212,7 +212,7 @@ public class Jeu extends AppCompatActivity {
         Document doc = new Document();
         doc.append("idCreationPartie",objectId);
 
-        return partie.find(doc).first();
+        return partie.findOne(doc);
     }
 
     private void petitSwitch(int value, Button button, ImageView image1,ImageView image2){
@@ -245,7 +245,7 @@ public class Jeu extends AppCompatActivity {
         Document doc = new Document();
         doc.append("_id",objectId);
 
-        return joueurLigne.find(doc).first();
+        return joueurLigne.findOne(doc);
     }
 
     private void petitSwitch2(int value, Button button, ImageView image1,ImageView image2){
@@ -273,7 +273,7 @@ public class Jeu extends AppCompatActivity {
         Document doc = new Document();
         doc.append("_id",objectId);
 
-        return creationPartie.find(doc).first();
+        return creationPartie.findOne(doc);
     }
 
     private void cliqueSurBouton(Button bouton,ObjectId idJoueur,ObjectId IdCreationPartie){

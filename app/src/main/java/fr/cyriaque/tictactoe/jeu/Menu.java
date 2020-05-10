@@ -110,7 +110,7 @@ public class Menu extends AppCompatActivity {
         Document doc = new Document();
         doc.append("_id",objectId);
 
-       return joueurLigne.find(doc).first();
+       return joueurLigne.findOne(doc);
     }
 
 
