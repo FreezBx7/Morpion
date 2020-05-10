@@ -189,7 +189,7 @@ public class Jeu extends AppCompatActivity {
                                                         changeStream.addChangeEventListener((BsonValue documentId, ChangeEvent<Partie> event) -> {
 
 
-                                                            principalJeu(IdCreationPartie,TourDeQui,monID);
+                                                            principalJeu(IdCreationPartie,TourDeQui,item.get_id());
 
                                                         });
                                                     });
@@ -199,7 +199,7 @@ public class Jeu extends AppCompatActivity {
                                                         changeStream.addChangeEventListener((BsonValue documentId, ChangeEvent<Partie> event) -> {
 
 
-                                                            principalJeu(IdCreationPartie,TourDeQui,monID);
+                                                            principalJeu(IdCreationPartie,TourDeQui,item.get_id());
 
                                                         });
                                                     });
@@ -214,7 +214,7 @@ public class Jeu extends AppCompatActivity {
                                 Log.e("app","C'EST PAS A MOI DE JOUER mon id : "+ monID + " l'autre id : " + item.get_id());
                                 getPlateauAttente(task.getResult());
 
-
+                                 item.get_id();
                                 getCreationPartie(IdCreationPartie).addOnCompleteListener(new OnCompleteListener<CreationPartie>() {
                                     @Override
                                     public void onComplete(@NonNull Task<CreationPartie> task) {
@@ -229,7 +229,7 @@ public class Jeu extends AppCompatActivity {
                                                         AsyncChangeStream<Partie, ChangeEvent<Partie>> changeStream = task2.getResult();
                                                         changeStream.addChangeEventListener((BsonValue documentId, ChangeEvent<Partie> event) -> {
 
-                                                            principalJeu(IdCreationPartie,TourDeQui,monID);
+                                                            principalJeu(IdCreationPartie,TourDeQui,item.get_id());
 
 
                                                         });
@@ -239,7 +239,7 @@ public class Jeu extends AppCompatActivity {
                                                         AsyncChangeStream<Partie, ChangeEvent<Partie>> changeStream = task2.getResult();
                                                         changeStream.addChangeEventListener((BsonValue documentId, ChangeEvent<Partie> event) -> {
 
-                                                            principalJeu(IdCreationPartie,TourDeQui,monID);
+                                                            principalJeu(IdCreationPartie,TourDeQui,item.get_id());
 
 
                                                         });
