@@ -293,6 +293,7 @@ public class Jeu extends AppCompatActivity {
                             if(idJoueur.equals(joueur1)){
                                 //CROIXXX
                                 String stringCase = "";
+                                Log.d("app", bouton.getText().toString());
                                 switch (bouton.getText().toString()){
                                     case "bouton1":
                                         stringCase = "case1";
