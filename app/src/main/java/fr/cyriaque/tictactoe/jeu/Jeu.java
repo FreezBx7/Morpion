@@ -424,30 +424,48 @@ public class Jeu extends AppCompatActivity {
     }
     public boolean gagner(Partie partieEncours){
         boolean verif = false;
-        if(partieEncours.getCase1() == partieEncours.getCase2() && partieEncours.getCase1() == partieEncours.getCase3()){
-            verif = true;
+        if(partieEncours.getCase1() != 0 || partieEncours.getCase2() != 0 || partieEncours.getCase3() != 0){
+            if(partieEncours.getCase1() == partieEncours.getCase2() && partieEncours.getCase1() == partieEncours.getCase3()){
+                verif = true;
+            }
         }
-        if(partieEncours.getCase4() == partieEncours.getCase5() && partieEncours.getCase4() == partieEncours.getCase6()){
-            verif = true;
+        if(partieEncours.getCase4() != 0 || partieEncours.getCase5() != 0 || partieEncours.getCase6() != 0){
+            if(partieEncours.getCase4() == partieEncours.getCase5() && partieEncours.getCase4() == partieEncours.getCase6()){
+                verif = true;
+            }
         }
-        if(partieEncours.getCase7() == partieEncours.getCase8() && partieEncours.getCase7() == partieEncours.getCase9()){
-            verif = true;
+
+        if(partieEncours.getCase7() != 0 || partieEncours.getCase8() != 0 || partieEncours.getCase9() != 0){
+            if(partieEncours.getCase7() == partieEncours.getCase8() && partieEncours.getCase7() == partieEncours.getCase9()){
+                verif = true;
+            }
         }
-        if(partieEncours.getCase1() == partieEncours.getCase4() && partieEncours.getCase1() == partieEncours.getCase7()){
-            verif = true;
+        if(partieEncours.getCase1() != 0 || partieEncours.getCase4() != 0 || partieEncours.getCase7() != 0){
+            if(partieEncours.getCase1() == partieEncours.getCase4() && partieEncours.getCase1() == partieEncours.getCase7()){
+                verif = true;
+            }
         }
-        if(partieEncours.getCase2() == partieEncours.getCase5() && partieEncours.getCase2() == partieEncours.getCase8()){
-            verif = true;
+        if(partieEncours.getCase2() != 0 || partieEncours.getCase5() != 0 || partieEncours.getCase8() != 0){
+            if(partieEncours.getCase2() == partieEncours.getCase5() && partieEncours.getCase2() == partieEncours.getCase8()){
+                verif = true;
+            }
         }
-        if(partieEncours.getCase3() == partieEncours.getCase6() && partieEncours.getCase3() == partieEncours.getCase9()){
-            verif = true;
+        if(partieEncours.getCase3() != 0 || partieEncours.getCase6() != 0 || partieEncours.getCase9() != 0){
+            if(partieEncours.getCase3() == partieEncours.getCase6() && partieEncours.getCase3() == partieEncours.getCase9()){
+                verif = true;
+            }
         }
-        if(partieEncours.getCase1() == partieEncours.getCase5() && partieEncours.getCase1() == partieEncours.getCase9()){
-            verif = true;
+        if(partieEncours.getCase1() != 0 || partieEncours.getCase5() != 0 || partieEncours.getCase9() != 0){
+            if(partieEncours.getCase1() == partieEncours.getCase5() && partieEncours.getCase1() == partieEncours.getCase9()){
+                verif = true;
+            }
         }
-        if(partieEncours.getCase3() == partieEncours.getCase5() && partieEncours.getCase3() == partieEncours.getCase7()){
-            verif = true;
+        if(partieEncours.getCase3() != 0 || partieEncours.getCase5() != 0 || partieEncours.getCase7() != 0){
+            if(partieEncours.getCase3() == partieEncours.getCase5() && partieEncours.getCase3() == partieEncours.getCase7()){
+                verif = true;
+            }
         }
+
 
         return verif;
     }
