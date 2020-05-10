@@ -1,14 +1,16 @@
-package fr.cyriaque.tictactoe;
+package fr.cyriaque.tictactoe.jeu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class perdre extends AppCompatActivity {
+import fr.cyriaque.tictactoe.R;
+
+public class gagner extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perdre);
+        setContentView(R.layout.activity_gagner);
     }
 }

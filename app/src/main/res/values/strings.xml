@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TicTacToe</string>
+    <string name="stitch_client_app_id">tictactoe-bmuzq</string>
 </resources>

@@ -9,14 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Jeu"></activity>
-        <activity android:name=".egalite" />
-        <activity android:name=".perdre" />
-        <activity android:name=".gagner" />
-        <activity android:name=".attenteJoueur" />
-        <activity android:name=".RejoindrePartie" />
-        <activity android:name=".Menu" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".jeu.Jeu"></activity>
+        <activity android:name=".jeu.egalite" />
+        <activity android:name=".jeu.perdre" />
+        <activity android:name=".jeu.gagner" />
+        <activity android:name=".jeu.attenteJoueur" />
+        <activity android:name=".jeu.RejoindrePartie" />
+        <activity android:name=".jeu.Menu" />
+        <activity android:name=".jeu.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
