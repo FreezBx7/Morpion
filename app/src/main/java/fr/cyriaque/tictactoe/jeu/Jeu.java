@@ -15,11 +15,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.services.mongodb.remote.AsyncChangeStream;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.core.internal.common.BsonUtils;
+import com.mongodb.stitch.core.services.mongodb.remote.ChangeEvent;
 import com.mongodb.stitch.core.services.mongodb.remote.RemoteUpdateResult;
 
+import org.bson.BsonBoolean;
+import org.bson.BsonDocument;
+import org.bson.BsonObjectId;
+import org.bson.BsonValue;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.types.ObjectId;
@@ -137,6 +143,12 @@ public class Jeu extends AppCompatActivity {
             IdCreationPartie = (ObjectId) savedInstanceState.getSerializable("IdCreationPartie");
         }
         Log.d("app",monID.toString() + " / " +IdCreationPartie.toString());
+        principalJeu(IdCreationPartie,TourDeQui,monID);
+
+
+    }
+
+    public void principalJeu(ObjectId IdCreationPartie,TextView TourDeQui,ObjectId monID){
         getPartie(IdCreationPartie).addOnCompleteListener(new OnCompleteListener<Partie>() {
             @Override
             public void onComplete(@NonNull Task<Partie> task) {
@@ -144,39 +156,93 @@ public class Jeu extends AppCompatActivity {
                 if (!task.getResult().getIdCreationPartie().equals(IdCreationPartie)) {
                     Log.e("app", "Aucunne partie de trouvé a corriger absolument");
                 } else if (task.isSuccessful()) {
-                    getJoueur(task.getResult().getJoueur()).addOnSuccessListener(item -> {
-                        TourDeQui.setText(item.getPseudo());
+                    if(!gagner(task.getResult())){
+                        getJoueur(task.getResult().getJoueur()).addOnSuccessListener(item -> {
+                            TourDeQui.setText(item.getPseudo());
 
-                        if(monID.equals(task.getResult().getJoueur())){
-                            //A moi de jouer
-                            getPlateauJoueur(task.getResult());
-                            cliqueSurBouton(bouton1,task.getResult().getJoueur(),IdCreationPartie);
-                            cliqueSurBouton(bouton2,task.getResult().getJoueur(),IdCreationPartie);
-                            cliqueSurBouton(bouton3,task.getResult().getJoueur(),IdCreationPartie);
-                            cliqueSurBouton(bouton4,task.getResult().getJoueur(),IdCreationPartie);
-                            cliqueSurBouton(bouton5,task.getResult().getJoueur(),IdCreationPartie);
-                            cliqueSurBouton(bouton6,task.getResult().getJoueur(),IdCreationPartie);
-                            cliqueSurBouton(bouton7,task.getResult().getJoueur(),IdCreationPartie);
-                            cliqueSurBouton(bouton8,task.getResult().getJoueur(),IdCreationPartie);
-                            cliqueSurBouton(bouton9,task.getResult().getJoueur(),IdCreationPartie);
+                            if(monID.equals(task.getResult().getJoueur())){
+                                //A moi de jouer
+                                getPlateauJoueur(task.getResult());
+                                cliqueSurBouton(bouton1,task.getResult().getJoueur(),IdCreationPartie);
+                                cliqueSurBouton(bouton2,task.getResult().getJoueur(),IdCreationPartie);
+                                cliqueSurBouton(bouton3,task.getResult().getJoueur(),IdCreationPartie);
+                                cliqueSurBouton(bouton4,task.getResult().getJoueur(),IdCreationPartie);
+                                cliqueSurBouton(bouton5,task.getResult().getJoueur(),IdCreationPartie);
+                                cliqueSurBouton(bouton6,task.getResult().getJoueur(),IdCreationPartie);
+                                cliqueSurBouton(bouton7,task.getResult().getJoueur(),IdCreationPartie);
+                                cliqueSurBouton(bouton8,task.getResult().getJoueur(),IdCreationPartie);
+                                cliqueSurBouton(bouton9,task.getResult().getJoueur(),IdCreationPartie);
+
+                                getCreationPartie(IdCreationPartie).addOnCompleteListener(new OnCompleteListener<CreationPartie>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<CreationPartie> task) {
+
+                                        if (!task.getResult().get_id().equals(IdCreationPartie)) {
+                                            Log.e("app", "Aucunne creation partie de trouvé a corriger absolument");
+                                        } else if (task.isSuccessful()) {
+                                            ObjectId joueur1 = task.getResult().getIdCreateur();
+                                            ObjectId joueur2 = task.getResult().getIdJoueur();
+                                            partie.watchWithFilter(new BsonDocument("fullDocument.joueur", new BsonObjectId(joueur1)))
+                                                    .addOnCompleteListener(task2 -> {
+                                                        AsyncChangeStream<Partie, ChangeEvent<Partie>> changeStream = task2.getResult();
+                                                        changeStream.addChangeEventListener((BsonValue documentId, ChangeEvent<Partie> event) -> {
 
 
-                        }else{
-                            //a toi de jouer
-                            getPlateauAttente(task.getResult());
-                        }
+                                                            principalJeu(IdCreationPartie,TourDeQui,monID);
+
+                                                        });
+                                                    });
+
+                                        } else {
+                                            Log.e("app", "Failed to findOne: ", task.getException());
+                                        }
+                                    }
+                                });
+                            }else{
+                                //a toi de jouer
+                                getPlateauAttente(task.getResult());
+
+                                getCreationPartie(IdCreationPartie).addOnCompleteListener(new OnCompleteListener<CreationPartie>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<CreationPartie> task) {
+
+                                        if (!task.getResult().get_id().equals(IdCreationPartie)) {
+                                            Log.e("app", "Aucunne creation partie de trouvé a corriger absolument");
+                                        } else if (task.isSuccessful()) {
+                                            ObjectId joueur1 = task.getResult().getIdCreateur();
+                                            ObjectId joueur2 = task.getResult().getIdJoueur();
+                                            partie.watchWithFilter(new BsonDocument("fullDocument.joueur", new BsonObjectId(joueur2)))
+                                                    .addOnCompleteListener(task2 -> {
+                                                        AsyncChangeStream<Partie, ChangeEvent<Partie>> changeStream = task2.getResult();
+                                                        changeStream.addChangeEventListener((BsonValue documentId, ChangeEvent<Partie> event) -> {
+
+                                                            principalJeu(IdCreationPartie,TourDeQui,monID);
 
 
-                    });
+                                                        });
+                                                    });
+
+                                        } else {
+                                            Log.e("app", "Failed to findOne: ", task.getException());
+                                        }
+                                    }
+                                });
 
 
+
+                            }
+
+
+                        });
+                    }else {
+                        Intent intent = new Intent(Jeu.this, gagner.class);
+                        startActivity(intent);
+                    }
                 } else {
                     Log.e("app", "Failed to findOne: ", task.getException());
                 }
             }
         });
-
-
     }
 
     public void getPlateauJoueur(Partie partieEncours){
@@ -355,5 +421,34 @@ public class Jeu extends AppCompatActivity {
         updateTask.addOnSuccessListener(item -> {
             Log.e("app", "coup jouer ");
         });
+    }
+    public boolean gagner(Partie partieEncours){
+        boolean verif = false;
+        if(partieEncours.getCase1() == partieEncours.getCase2() && partieEncours.getCase1() == partieEncours.getCase3()){
+            verif = true;
+        }
+        if(partieEncours.getCase4() == partieEncours.getCase5() && partieEncours.getCase4() == partieEncours.getCase6()){
+            verif = true;
+        }
+        if(partieEncours.getCase7() == partieEncours.getCase8() && partieEncours.getCase7() == partieEncours.getCase9()){
+            verif = true;
+        }
+        if(partieEncours.getCase1() == partieEncours.getCase4() && partieEncours.getCase1() == partieEncours.getCase7()){
+            verif = true;
+        }
+        if(partieEncours.getCase2() == partieEncours.getCase5() && partieEncours.getCase2() == partieEncours.getCase8()){
+            verif = true;
+        }
+        if(partieEncours.getCase3() == partieEncours.getCase6() && partieEncours.getCase3() == partieEncours.getCase9()){
+            verif = true;
+        }
+        if(partieEncours.getCase1() == partieEncours.getCase5() && partieEncours.getCase1() == partieEncours.getCase9()){
+            verif = true;
+        }
+        if(partieEncours.getCase3() == partieEncours.getCase5() && partieEncours.getCase3() == partieEncours.getCase7()){
+            verif = true;
+        }
+
+        return verif;
     }
 }
