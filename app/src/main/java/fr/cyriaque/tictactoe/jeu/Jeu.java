@@ -160,7 +160,7 @@ public class Jeu extends AppCompatActivity {
                         getJoueur(task.getResult().getJoueur()).addOnSuccessListener(item -> {
                             TourDeQui.setText(item.getPseudo());
 
-                            if(monID.equals(task.getResult().getJoueur())){
+                            if(monID.equals(item.get_id())){
                                 //A moi de jouer
                                 Log.e("app","C'EST A MOI DE JOUER");
                                 getPlateauJoueur(task.getResult());
