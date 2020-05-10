@@ -148,7 +148,7 @@ public class Jeu extends AppCompatActivity {
 
     }
 
-    public void principalJeu(ObjectId IdCreationPartie,TextView TourDeQui,ObjectId monID){
+    public void principalJeu(ObjectId IdCreationPartie, TextView TourDeQui, final ObjectId monID){
         getPartie(IdCreationPartie).addOnCompleteListener(new OnCompleteListener<Partie>() {
             @Override
             public void onComplete(@NonNull Task<Partie> task) {
@@ -162,7 +162,7 @@ public class Jeu extends AppCompatActivity {
 
                             if(monID.equals(item.get_id())){
                                 //A moi de jouer
-                                Log.e("app","C'EST A MOI DE JOUER");
+                                Log.e("app","C'EST A MOI DE JOUER mon id : "+ monID + " l'autre id : "item.get_id());
                                 getPlateauJoueur(task.getResult());
                                 cliqueSurBouton(bouton1,task.getResult().getJoueur(),IdCreationPartie);
                                 cliqueSurBouton(bouton2,task.getResult().getJoueur(),IdCreationPartie);
