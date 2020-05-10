@@ -26,10 +26,12 @@ import org.bson.types.ObjectId;
 
 import fr.cyriaque.tictactoe.R;
 import fr.cyriaque.tictactoe.database.CreationPartie;
+import fr.cyriaque.tictactoe.database.Partie;
 
 public class RejoindrePartie extends AppCompatActivity {
     StitchAppClient stitchClient = null;
     private RemoteMongoCollection<CreationPartie> creationPartie;
+    private RemoteMongoCollection<Partie> partie;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,12 @@ public class RejoindrePartie extends AppCompatActivity {
                 .withCodecRegistry(CodecRegistries.fromRegistries(
                         BsonUtils.DEFAULT_CODEC_REGISTRY,
                         CodecRegistries.fromCodecs(CreationPartie.codec)));
+        partie = mongoClient
+                .getDatabase(Partie.TICTACTOE_DATABASE)
+                .getCollection(Partie.TICTACTOE_PARTIE_COLLECTION, Partie.class)
+                .withCodecRegistry(CodecRegistries.fromRegistries(
+                        BsonUtils.DEFAULT_CODEC_REGISTRY,
+                        CodecRegistries.fromCodecs(Partie.codec)));
         ObjectId objectId;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -89,6 +97,8 @@ public class RejoindrePartie extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task <RemoteUpdateResult> task2) {
                                             if (task2.isSuccessful()) {
+                                                ObjectId id1 = new ObjectId();
+                                                creerJeu(id1,task.getResult().get_id(),task.getResult().getIdCreateur());
                                                 Intent intent = new Intent(RejoindrePartie.this,Jeu.class);
                                                 intent.putExtra("MonID",task.getResult().getIdJoueur());
                                                 intent.putExtra("IdCreationPartie", task.getResult().get_id());
@@ -137,5 +147,22 @@ public class RejoindrePartie extends AppCompatActivity {
     private Task<CreationPartie> getPartieByCode(String code){
         Document doc = new Document();
         return creationPartie.findOne(doc);
+    }
+
+    public void creerJeu(ObjectId _id,ObjectId objectIdPartie,ObjectId objectIdJoueur){
+
+        int Case1 = 0;
+        int Case2 = 0;
+        int Case3 = 0;
+        int Case4 = 0;
+        int Case5 = 0;
+        int Case6 = 0;
+        int Case7 = 0;
+        int Case8 = 0;
+        int Case9 = 0;
+
+
+        final Partie newPartie = new Partie(_id,objectIdPartie,Case1,Case2,Case3,Case4,Case5,Case6,Case7,Case8,Case9,objectIdJoueur);
+        partie.insertOne(newPartie).addOnFailureListener(e -> Log.e("app", "failed to insert todo item", e));
     }
 }

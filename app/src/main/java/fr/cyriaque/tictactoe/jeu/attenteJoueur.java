@@ -91,9 +91,9 @@ public class attenteJoueur extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     AsyncChangeStream<CreationPartie, ChangeEvent<CreationPartie>> changeStream = task.getResult();
                     changeStream.addChangeEventListener((BsonValue documentId, ChangeEvent<CreationPartie> event) -> {
-                        ObjectId id1 = new ObjectId();
+
                         getPartie(partieID).addOnSuccessListener(item -> {
-                            creerJeu(id1,partieID,item.getIdCreateur());
+
                             Intent intent = new Intent(attenteJoueur.this,Jeu.class);
                             intent.putExtra("IdCreationPartie", partieID);
                             intent.putExtra("MonID",item.getIdCreateur());
@@ -131,22 +131,7 @@ public class attenteJoueur extends AppCompatActivity {
 
         return creationPartie.find(doc).first();
     }
-    public void creerJeu(ObjectId _id,ObjectId objectIdPartie,ObjectId objectIdJoueur){
 
-        int Case1 = 0;
-        int Case2 = 0;
-        int Case3 = 0;
-        int Case4 = 0;
-        int Case5 = 0;
-        int Case6 = 0;
-        int Case7 = 0;
-        int Case8 = 0;
-        int Case9 = 0;
-
-
-        final Partie newPartie = new Partie(_id,objectIdPartie,Case1,Case2,Case3,Case4,Case5,Case6,Case7,Case8,Case9,objectIdJoueur);
-        partie.insertOne(newPartie).addOnFailureListener(e -> Log.e(TAG, "failed to insert todo item", e));
-    }
     private void deletePartie(ObjectId partieID){
         Document doc = new Document();
         doc.append("_id",partieID);
