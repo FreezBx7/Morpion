@@ -192,6 +192,16 @@ public class Jeu extends AppCompatActivity {
 
                                                         });
                                                     });
+                                            partie.watchWithFilter(new BsonDocument("fullDocument.joueur", new BsonObjectId(joueur2)))
+                                                    .addOnCompleteListener(task2 -> {
+                                                        AsyncChangeStream<Partie, ChangeEvent<Partie>> changeStream = task2.getResult();
+                                                        changeStream.addChangeEventListener((BsonValue documentId, ChangeEvent<Partie> event) -> {
+
+
+                                                            principalJeu(IdCreationPartie,TourDeQui,monID);
+
+                                                        });
+                                                    });
 
                                         } else {
                                             Log.e("app", "Failed to findOne: ", task.getException());
@@ -221,6 +231,17 @@ public class Jeu extends AppCompatActivity {
 
                                                         });
                                                     });
+                                            partie.watchWithFilter(new BsonDocument("fullDocument.joueur", new BsonObjectId(joueur1)))
+                                                    .addOnCompleteListener(task2 -> {
+                                                        AsyncChangeStream<Partie, ChangeEvent<Partie>> changeStream = task2.getResult();
+                                                        changeStream.addChangeEventListener((BsonValue documentId, ChangeEvent<Partie> event) -> {
+
+                                                            principalJeu(IdCreationPartie,TourDeQui,monID);
+
+
+                                                        });
+                                                    });
+
 
                                         } else {
                                             Log.e("app", "Failed to findOne: ", task.getException());
@@ -395,6 +416,41 @@ public class Jeu extends AppCompatActivity {
                                 updatePartie(IdCreationPartie,stringCase,1,joueur2);
                             }else if(idJoueur.equals(joueur2)){
                                 //RONDDDD
+                                String stringCase = "";
+                                Log.d("app", bouton.getText().toString());
+                                switch (bouton.getText().toString()){
+                                    case "bouton1":
+                                        stringCase = "case1";
+                                        break;
+                                    case "bouton2":
+                                        stringCase = "case2";
+                                        break;
+                                    case "bouton3":
+                                        stringCase = "case3";
+                                        break;
+                                    case "bouton4":
+                                        stringCase = "case4";
+                                        break;
+                                    case "bouton5":
+                                        stringCase = "case5";
+                                        break;
+                                    case "bouton6":
+                                        stringCase = "case6";
+                                        break;
+                                    case "bouton7":
+                                        stringCase = "case7";
+                                        break;
+                                    case "bouton8":
+                                        stringCase = "case8";
+                                        break;
+                                    case "bouton9":
+                                        stringCase = "case9";
+                                        break;
+                                    default:
+                                        stringCase = "";
+                                        break;
+                                }
+                                updatePartie(IdCreationPartie,stringCase,2,joueur1);
                             }else{
                                 Log.e("app", "GROSSE ERREUR AU NIVEAU DU CLIQUE DU JOUEUR ");
                             }
