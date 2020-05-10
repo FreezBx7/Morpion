@@ -162,6 +162,7 @@ public class Jeu extends AppCompatActivity {
 
                             if(monID.equals(task.getResult().getJoueur())){
                                 //A moi de jouer
+                                Log.e("app","C'EST A MOI DE JOUER");
                                 getPlateauJoueur(task.getResult());
                                 cliqueSurBouton(bouton1,task.getResult().getJoueur(),IdCreationPartie);
                                 cliqueSurBouton(bouton2,task.getResult().getJoueur(),IdCreationPartie);
@@ -210,7 +211,9 @@ public class Jeu extends AppCompatActivity {
                                 });
                             }else{
                                 //a toi de jouer
+                                Log.e("app","C'EST PAS A MOI DE JOUER");
                                 getPlateauAttente(task.getResult());
+
 
                                 getCreationPartie(IdCreationPartie).addOnCompleteListener(new OnCompleteListener<CreationPartie>() {
                                     @Override
