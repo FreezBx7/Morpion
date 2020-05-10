@@ -349,9 +349,9 @@ public class Jeu extends AppCompatActivity {
                         .append(stringCase, valueCase)
                         .append("joueur", newJoueur)
         );
-
+        Log.e("app",stringCase+"   "+valueCase+ " joueur :" + newJoueur);
         final Task<RemoteUpdateResult> updateTask =
-                creationPartie.updateOne(filterDoc, updateDoc);
+                partie.updateOne(filterDoc, updateDoc);
         updateTask.addOnSuccessListener(item -> {
             Log.e("app", "coup jouer ");
         });
