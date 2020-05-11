@@ -28,8 +28,10 @@ public class Partie {
     private final int Case8;
     private final int Case9;
     private final ObjectId joueur;
+    private final ObjectId joueur1;
+    private final ObjectId joueur2;
 
-    public Partie(ObjectId _id, ObjectId idCreationPartie, int case1, int case2, int case3, int case4, int case5, int case6, int case7, int case8, int case9, ObjectId joueur) {
+    public Partie(ObjectId _id, ObjectId idCreationPartie, int case1, int case2, int case3, int case4, int case5, int case6, int case7, int case8, int case9, ObjectId joueur, ObjectId joueur1, ObjectId joueur2) {
         this._id = _id;
         this.idCreationPartie = idCreationPartie;
         Case1 = case1;
@@ -42,6 +44,8 @@ public class Partie {
         Case8 = case8;
         Case9 = case9;
         this.joueur = joueur;
+        this.joueur1 = joueur1;
+        this.joueur2 = joueur2;
     }
 
     public ObjectId get_Id() {
@@ -88,6 +92,14 @@ public class Partie {
         return Case9;
     }
 
+    public ObjectId getJoueur1() {
+        return joueur1;
+    }
+
+    public ObjectId getJoueur2() {
+        return joueur2;
+    }
+
     public ObjectId getJoueur() {
         return joueur;
     }
@@ -106,6 +118,8 @@ public class Partie {
         asDoc.put(Fields.CASE8, new BsonInt32(partie.getCase8()));
         asDoc.put(Fields.CASE9, new BsonInt32(partie.getCase9()));
         asDoc.put(Fields.JOUEUR, new BsonObjectId(partie.getJoueur()));
+        asDoc.put(Fields.JOUEUR1, new BsonObjectId(partie.getJoueur1()));
+        asDoc.put(Fields.JOUEUR2, new BsonObjectId(partie.getJoueur2()));
         return asDoc;
     }
 
@@ -122,7 +136,9 @@ public class Partie {
                 doc.getInt32(Partie.Fields.CASE7).getValue(),
                 doc.getInt32(Partie.Fields.CASE8).getValue(),
                 doc.getInt32(Partie.Fields.CASE9).getValue(),
-                doc.getObjectId(Fields.JOUEUR).getValue()
+                doc.getObjectId(Fields.JOUEUR).getValue(),
+                doc.getObjectId(Fields.JOUEUR1).getValue(),
+                doc.getObjectId(Fields.JOUEUR2).getValue()
 
         );
     }
@@ -141,6 +157,8 @@ public class Partie {
         static final String CASE8 = "case8";
         static final String CASE9 = "case9";
         static final String JOUEUR = "joueur";
+        static final String JOUEUR1 = "joueur1";
+        static final String JOUEUR2 = "joueur2";
     }
 
     public static final Codec<Partie> codec = new Codec<Partie>() {

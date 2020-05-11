@@ -10,8 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".jeu.Jeu"></activity>
-        <activity android:name=".jeu.egalite" />
-        <activity android:name=".jeu.perdre" />
         <activity android:name=".jeu.gagner" />
         <activity android:name=".jeu.attenteJoueur" />
         <activity android:name=".jeu.RejoindrePartie" />

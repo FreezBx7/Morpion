@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(MainActivity.this,Menu.class);
                     intent.putExtra("UserID",objectId);
+                    intent.putExtra("Pseudo",codeMain.getText().toString().trim());
                     startActivity(intent);
                 }else{
                     TextView codeErreur = findViewById(R.id.codeErreur);

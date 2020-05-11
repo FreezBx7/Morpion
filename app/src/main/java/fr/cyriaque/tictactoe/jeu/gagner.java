@@ -2,7 +2,13 @@ package fr.cyriaque.tictactoe.jeu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import org.bson.types.ObjectId;
 
 import fr.cyriaque.tictactoe.R;
 
@@ -12,5 +18,52 @@ public class gagner extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gagner);
+
+        Button retour = findViewById(R.id.finalRetour);
+        TextView finalText = findViewById(R.id.egalite);
+
+        String egalite;
+        ObjectId monID;
+        ObjectId IDWiner;
+        String pseudo;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                monID = null;
+                egalite = "";
+                IDWiner = null;
+                pseudo = "";
+            } else {
+                monID = (ObjectId) extras.get("MonID");
+                IDWiner = (ObjectId) extras.get("winer");
+                egalite = (String) extras.get("egalite");
+                pseudo = extras.getString("Pseudo");
+            }
+        } else {
+            monID = (ObjectId) savedInstanceState.getSerializable("MonID");
+            IDWiner = (ObjectId) savedInstanceState.getSerializable("winer");
+            pseudo = (String) savedInstanceState.getSerializable("Pseudo");
+            egalite = (String) savedInstanceState.getSerializable("egalite");
+        }
+
+        if(egalite.equals("oui")){
+            finalText.setText("EGALITE");
+        }else{
+            if(monID.equals(IDWiner)){
+                finalText.setText("Felicitation, tu as gagné !");
+            }else{
+                finalText.setText("Dommage, tu as perdu !");
+
+            }
+        }
+
+        retour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(gagner.this, Menu.class);
+                intent.putExtra("Pseudo",pseudo);
+                startActivity(intent);
+            }
+        });
     }
 }

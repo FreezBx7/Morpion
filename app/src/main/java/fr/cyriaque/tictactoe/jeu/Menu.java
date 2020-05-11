@@ -64,25 +64,27 @@ public class Menu extends AppCompatActivity {
                         CodecRegistries.fromCodecs(JoueurLigne.codec)));
         joueur = new JoueurLigne(new ObjectId(),"erreur");
         ObjectId objectId;
+        String pseudo;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
                 objectId = null;
+                pseudo = "";
             } else {
                 objectId = (ObjectId) extras.get("UserID");
+                pseudo = extras.getString("Pseudo");
             }
         } else {
             objectId = (ObjectId) savedInstanceState.getSerializable("UserID");
+            pseudo = (String) savedInstanceState.getSerializable("Pseudo");
+
         }
 
         Button creer = findViewById(R.id.creer);
         Button rejoindre = findViewById(R.id.rejoindre);
         TextView bonjour = findViewById(R.id.bonjour);
 
-
-        getJoueur(objectId).addOnSuccessListener(item -> {
-            bonjour.setText("Bonjour " + item.getPseudo());
-        });
+        bonjour.setText("Bonjour " + pseudo);
 
         creer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +94,7 @@ public class Menu extends AppCompatActivity {
 
                 Intent intent2 = new Intent(Menu.this,attenteJoueur.class);
                 intent2.putExtra("PartieID",objectIdPartie);
+                intent2.putExtra("Pseudo",pseudo);
                 startActivity(intent2);
             }
         });
@@ -101,6 +104,7 @@ public class Menu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this,RejoindrePartie.class);
                 intent.putExtra("UserID",objectId);
+                intent.putExtra("Pseudo",pseudo);
                 startActivity(intent);
             }
         });

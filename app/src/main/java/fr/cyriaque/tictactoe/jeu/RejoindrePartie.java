@@ -53,15 +53,19 @@ public class RejoindrePartie extends AppCompatActivity {
                         BsonUtils.DEFAULT_CODEC_REGISTRY,
                         CodecRegistries.fromCodecs(Partie.codec)));
         ObjectId objectId;
+        String pseudo;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
                 objectId = null;
+                pseudo = "";
             } else {
                 objectId = (ObjectId) extras.get("UserID");
+                pseudo = extras.getString("Pseudo");
             }
         } else {
             objectId = (ObjectId) savedInstanceState.getSerializable("UserID");
+            pseudo = (String) savedInstanceState.getSerializable("Pseudo");
         }
 
         Button valider =  findViewById(R.id.rejoindrePartie);
@@ -98,10 +102,11 @@ public class RejoindrePartie extends AppCompatActivity {
                                         public void onComplete(@NonNull Task <RemoteUpdateResult> task2) {
                                             if (task2.isSuccessful()) {
                                                 ObjectId id1 = new ObjectId();
-                                                creerJeu(id1,task.getResult().get_id(),task.getResult().getIdCreateur());
+                                                creerJeu(id1,task.getResult().get_id(),task.getResult().getIdCreateur(),objectId);
                                                 Intent intent = new Intent(RejoindrePartie.this,Jeu.class);
                                                 intent.putExtra("MonID",objectId);
                                                 intent.putExtra("IdCreationPartie", task.getResult().get_id());
+                                                intent.putExtra("Pseudo",pseudo);
                                                 startActivity(intent);
                                             } else {
                                                 Log.e("app", "failed to update document with: ", task2.getException());
@@ -132,6 +137,7 @@ public class RejoindrePartie extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RejoindrePartie.this,Menu.class);
+                intent.putExtra("Pseudo",pseudo);
                 startActivity(intent);
             }
         });
@@ -149,7 +155,7 @@ public class RejoindrePartie extends AppCompatActivity {
         return creationPartie.findOne(doc);
     }
 
-    public void creerJeu(ObjectId _id,ObjectId objectIdPartie,ObjectId objectIdJoueur){
+    public void creerJeu(ObjectId _id,ObjectId objectIdPartie,ObjectId objectIdJoueur,ObjectId objectIdJoueur2){
 
         int Case1 = 0;
         int Case2 = 0;
@@ -162,7 +168,7 @@ public class RejoindrePartie extends AppCompatActivity {
         int Case9 = 0;
 
 
-        final Partie newPartie = new Partie(_id,objectIdPartie,Case1,Case2,Case3,Case4,Case5,Case6,Case7,Case8,Case9,objectIdJoueur);
+        final Partie newPartie = new Partie(_id,objectIdPartie,Case1,Case2,Case3,Case4,Case5,Case6,Case7,Case8,Case9,objectIdJoueur,objectIdJoueur,objectIdJoueur2);
         partie.insertOne(newPartie).addOnFailureListener(e -> Log.e("app", "failed to insert todo item", e));
     }
 }

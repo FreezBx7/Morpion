@@ -70,15 +70,19 @@ public class attenteJoueur extends AppCompatActivity {
 
         TextView codeRejoindre = findViewById(R.id.codeRejoindre2);
         ObjectId partieID;
+        String pseudo;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
                 partieID = null;
+                pseudo = "";
             } else {
                 partieID = (ObjectId) extras.get("PartieID");
+                pseudo = extras.getString("Pseudo");
             }
         } else {
             partieID = (ObjectId) savedInstanceState.getSerializable("PartieID");
+            pseudo = (String) savedInstanceState.getSerializable("Pseudo");
         }
 
         getPartie(partieID).addOnSuccessListener(item -> {
@@ -97,6 +101,7 @@ public class attenteJoueur extends AppCompatActivity {
                             Intent intent = new Intent(attenteJoueur.this,Jeu.class);
                             intent.putExtra("IdCreationPartie", partieID);
                             intent.putExtra("MonID",item.getIdCreateur());
+                            intent.putExtra("Pseudo", pseudo);
                             startActivity(intent);
                         });
 
@@ -108,19 +113,10 @@ public class attenteJoueur extends AppCompatActivity {
         annuler.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                getPartie(partieID).addOnSuccessListener(item -> {
-                    Intent intent = new Intent(attenteJoueur.this,Menu.class);
-                    if(item.getIdCreateur() != null){
-                        intent.putExtra("UserID",item.getIdCreateur());
-                        startActivity(intent);
-                    }else{
-                        Log.e("app","erreur getIdCreateur null ligne 98 attente joueur"+ item.getCode());
-                    }
-
-                });
                 deletePartie(partieID);
-
+                Intent intent = new Intent(attenteJoueur.this,Menu.class);
+                intent.putExtra("Pseudo",pseudo);
+                startActivity(intent);
             }
         });
     }
