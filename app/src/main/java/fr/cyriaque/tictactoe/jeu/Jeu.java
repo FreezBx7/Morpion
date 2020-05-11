@@ -132,20 +132,28 @@ public class Jeu extends AppCompatActivity {
         ObjectId monID;
         ObjectId IdCreationPartie;
         String pseudo;
+        ObjectId joueur1;
+        ObjectId joueur2;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
                 monID = null;
+                joueur1 = null;
+                joueur2 = null;
                 IdCreationPartie = null;
                 pseudo = "";
             } else {
                 monID = (ObjectId) extras.get("MonID");
+                joueur1 = (ObjectId) extras.get("joueur1");
+                joueur2 = (ObjectId) extras.get("joueur2");
                 IdCreationPartie = (ObjectId) extras.get("IdCreationPartie");
                 pseudo = extras.getString("Pseudo");
             }
         } else {
             monID = (ObjectId) savedInstanceState.getSerializable("MonID");
             IdCreationPartie = (ObjectId) savedInstanceState.getSerializable("IdCreationPartie");
+            joueur1 = (ObjectId) savedInstanceState.getSerializable("joueur1");
+            joueur2 = (ObjectId) savedInstanceState.getSerializable("joueur2");
             pseudo = (String) savedInstanceState.getSerializable("Pseudo");
         }
         Log.d("app",monID.toString() + " / " +IdCreationPartie.toString());
@@ -161,26 +169,7 @@ public class Jeu extends AppCompatActivity {
                 } else if (task.isSuccessful()) {
                     principalJeu(task.getResult(),TourDeQui,monID,pseudo);
 
-                    partie.watchWithFilter(new BsonDocument("fullDocument.joueur", new BsonObjectId(task.getResult().getJoueur1())))
-                            .addOnCompleteListener(task2 -> {
-                                AsyncChangeStream<Partie, ChangeEvent<Partie>> changeStream = task2.getResult();
-                                changeStream.addChangeEventListener((BsonValue documentId, ChangeEvent<Partie> event) -> {
 
-
-                                    principalJeu(task.getResult(),TourDeQui,monID,pseudo);
-
-                                });
-                            });
-                    partie.watchWithFilter(new BsonDocument("fullDocument.joueur", new BsonObjectId(task.getResult().getJoueur2())))
-                            .addOnCompleteListener(task2 -> {
-                                AsyncChangeStream<Partie, ChangeEvent<Partie>> changeStream = task2.getResult();
-                                changeStream.addChangeEventListener((BsonValue documentId, ChangeEvent<Partie> event) -> {
-
-
-                                    principalJeu(task.getResult(),TourDeQui,monID,pseudo);
-
-                                });
-                            });
 
                     quitter.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -198,6 +187,59 @@ public class Jeu extends AppCompatActivity {
                 }
             }
         });
+
+        partie.watchWithFilter(new BsonDocument("fullDocument.joueur", new BsonObjectId(joueur1)))
+                .addOnCompleteListener(task2 -> {
+                    AsyncChangeStream<Partie, ChangeEvent<Partie>> changeStream = task2.getResult();
+                    changeStream.addChangeEventListener((BsonValue documentId, ChangeEvent<Partie> event) -> {
+
+
+                        getPartie(IdCreationPartie).addOnCompleteListener(new OnCompleteListener<Partie>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Partie> task) {
+
+                                if (!task.getResult().getIdCreationPartie().equals(IdCreationPartie)) {
+                                    Log.e("app", "Aucunne partie de trouvé a corriger absolument");
+                                    Intent intent = new Intent(Jeu.this, Menu.class);
+                                    intent.putExtra("Pseudo",pseudo);
+                                    startActivity(intent);
+                                } else if (task.isSuccessful()) {
+                                    principalJeu(task.getResult(),TourDeQui,monID,pseudo);
+
+                                } else {
+                                    Log.e("app", "Failed to findOne: ", task.getException());
+                                }
+                            }
+                        });
+
+                    });
+                });
+        partie.watchWithFilter(new BsonDocument("fullDocument.joueur", new BsonObjectId(joueur2)))
+                .addOnCompleteListener(task2 -> {
+                    AsyncChangeStream<Partie, ChangeEvent<Partie>> changeStream = task2.getResult();
+                    changeStream.addChangeEventListener((BsonValue documentId, ChangeEvent<Partie> event) -> {
+
+
+                        getPartie(IdCreationPartie).addOnCompleteListener(new OnCompleteListener<Partie>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Partie> task) {
+
+                                if (!task.getResult().getIdCreationPartie().equals(IdCreationPartie)) {
+                                    Log.e("app", "Aucunne partie de trouvé a corriger absolument");
+                                    Intent intent = new Intent(Jeu.this, Menu.class);
+                                    intent.putExtra("Pseudo",pseudo);
+                                    startActivity(intent);
+                                } else if (task.isSuccessful()) {
+                                    principalJeu(task.getResult(),TourDeQui,monID,pseudo);
+
+                                } else {
+                                    Log.e("app", "Failed to findOne: ", task.getException());
+                                }
+                            }
+                        });
+
+                    });
+                });
 
 
 

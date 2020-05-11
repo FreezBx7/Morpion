@@ -101,6 +101,8 @@ public class attenteJoueur extends AppCompatActivity {
                             Intent intent = new Intent(attenteJoueur.this,Jeu.class);
                             intent.putExtra("IdCreationPartie", partieID);
                             intent.putExtra("MonID",item.getIdCreateur());
+                            intent.putExtra("joueur1",item.getIdCreateur());
+                            intent.putExtra("joueur2",item.getIdJoueur());
                             intent.putExtra("Pseudo", pseudo);
                             startActivity(intent);
                         });

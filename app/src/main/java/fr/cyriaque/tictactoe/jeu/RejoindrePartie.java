@@ -106,6 +106,8 @@ public class RejoindrePartie extends AppCompatActivity {
                                                 Intent intent = new Intent(RejoindrePartie.this,Jeu.class);
                                                 intent.putExtra("MonID",objectId);
                                                 intent.putExtra("IdCreationPartie", task.getResult().get_id());
+                                                intent.putExtra("joueur1",task.getResult().getIdCreateur());
+                                                intent.putExtra("joueur2",objectId);
                                                 intent.putExtra("Pseudo",pseudo);
                                                 startActivity(intent);
                                             } else {
