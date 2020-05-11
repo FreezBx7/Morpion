@@ -248,7 +248,6 @@ public class Jeu extends AppCompatActivity {
     public void principalJeu(Partie partie, TextView TourDeQui, final ObjectId monID,String pseudo){
 
                     if(!gagner(partie)){
-                        if(!egaliter(partie)){
                             getJoueur(partie.getJoueur()).addOnSuccessListener(item -> {
                                 TourDeQui.setText(item.getPseudo());});
 
@@ -271,14 +270,7 @@ public class Jeu extends AppCompatActivity {
                                 Log.e("app","C'EST PAS A MOI DE JOUER mon id : "+ monID + " l'autre id : " + partie.getJoueur());
                                 getPlateauAttente(partie);
                             }
-                        }else{
-                            deleteCreationPartie(partie);
-                            deletePartie(partie);
-                            Intent intent = new Intent(Jeu.this, gagner.class);
-                            intent.putExtra("egalite","oui");
-                            intent.putExtra("Pseudo",pseudo);
-                            startActivity(intent);
-                        }
+
                     }else {
                         deleteCreationPartie(partie);
                         deletePartie(partie);
