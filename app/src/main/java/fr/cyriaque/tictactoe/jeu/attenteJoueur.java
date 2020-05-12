@@ -84,7 +84,7 @@ public class attenteJoueur extends AppCompatActivity {
             partieID = (ObjectId) savedInstanceState.getSerializable("PartieID");
             pseudo = (String) savedInstanceState.getSerializable("Pseudo");
         }
-        if(partieID == null){
+        if(partieID != null){
             getPartie(partieID).addOnSuccessListener(item -> {
                 codeRejoindre.setText(item.getCode());
             });
