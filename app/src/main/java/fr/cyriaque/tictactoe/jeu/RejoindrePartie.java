@@ -159,6 +159,7 @@ public class RejoindrePartie extends AppCompatActivity {
 
     private Task<CreationPartie> getPartieByCode(String code){
         Document doc = new Document();
+        doc.append("code",code);
         return creationPartie.findOne(doc);
     }
 
