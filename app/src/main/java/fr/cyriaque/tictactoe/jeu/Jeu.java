@@ -280,11 +280,9 @@ public class Jeu extends AppCompatActivity {
                                 getPlateauAttente(partie);
                             }
                         }else{
-                            deleteCreationPartie(partie);
-                            deletePartie(partie);
                             Intent intent = new Intent(Jeu.this, gagner.class);
                             intent.putExtra("egalite","oui");
-                            intent.putExtra("winer",partie.getJoueur());
+                            intent.putExtra("IDPARTIE",partie.get_Id());
                             intent.putExtra("monID",monID);
                             intent.putExtra("Pseudo",pseudo);
                             startActivity(intent);
@@ -292,11 +290,10 @@ public class Jeu extends AppCompatActivity {
 
 
                     }else {
-                        deleteCreationPartie(partie);
-                        deletePartie(partie);
+
                         Intent intent = new Intent(Jeu.this, gagner.class);
                         intent.putExtra("egalite","non");
-                        intent.putExtra("winer",partie.getJoueur());
+                        intent.putExtra("IDPARTIE",partie.get_Id());
                         intent.putExtra("monID",monID);
                         intent.putExtra("Pseudo",pseudo);
                         startActivity(intent);

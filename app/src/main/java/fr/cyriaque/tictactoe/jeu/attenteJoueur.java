@@ -84,10 +84,16 @@ public class attenteJoueur extends AppCompatActivity {
             partieID = (ObjectId) savedInstanceState.getSerializable("PartieID");
             pseudo = (String) savedInstanceState.getSerializable("Pseudo");
         }
+        if(partieID == null){
+            getPartie(partieID).addOnSuccessListener(item -> {
+                codeRejoindre.setText(item.getCode());
+            });
+        }else{
+            getPartie(partieID).addOnSuccessListener(item -> {
+                codeRejoindre.setText("un bug est survenue veuillez redemarrer l'application");
+            });
+        }
 
-        getPartie(partieID).addOnSuccessListener(item -> {
-            codeRejoindre.setText(item.getCode());
-        });
 
 
 

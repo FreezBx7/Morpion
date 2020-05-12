@@ -91,7 +91,7 @@ public class Menu extends AppCompatActivity {
             public void onClick(View v) {
                 ObjectId objectIdPartie = new ObjectId();
                 creerPartie(objectIdPartie,objectId);
-
+                Log.e("app","ID DE LA PARTIE :"+objectIdPartie);
                 Intent intent2 = new Intent(Menu.this,attenteJoueur.class);
                 intent2.putExtra("PartieID",objectIdPartie);
                 intent2.putExtra("Pseudo",pseudo);
