@@ -81,49 +81,54 @@ public class RejoindrePartie extends AppCompatActivity {
                     getPartieByCode(codeRejoindre.getText().toString().toUpperCase()).addOnCompleteListener(new OnCompleteListener<CreationPartie>() {
                         @Override
                         public void onComplete(@NonNull Task<CreationPartie> task) {
+                            if(task.getResult() != null){
+                                if (!task.getResult().getCode().equals(codeRejoindre.getText().toString().toUpperCase())) {
+                                    erreurCode.setText("Le code "+codeRejoindre.getText()+" est faux" );
+                                    erreurCode.setVisibility(View.VISIBLE);
+                                }
+                                else if (task.isSuccessful()) {
+                                    if(!task.getResult().isValide()){
+                                        Document filterDoc = new Document().append("_id", task.getResult().get_id());
+                                        Document updateDoc = new Document().append("$set",
+                                                new Document()
+                                                        .append("idJoueur", objectId)
+                                                        .append("valide", true)
+                                        );
 
-                            if (!task.getResult().getCode().equals(codeRejoindre.getText().toString().toUpperCase())) {
+                                        final Task<RemoteUpdateResult> updateTask =
+                                                creationPartie.updateOne(filterDoc, updateDoc);
+                                        updateTask.addOnCompleteListener(new OnCompleteListener <RemoteUpdateResult> () {
+                                            @Override
+                                            public void onComplete(@NonNull Task <RemoteUpdateResult> task2) {
+                                                if (task2.isSuccessful()) {
+                                                    ObjectId id1 = new ObjectId();
+                                                    creerJeu(id1,task.getResult().get_id(),task.getResult().getIdCreateur(),objectId);
+                                                    Intent intent = new Intent(RejoindrePartie.this,Jeu.class);
+                                                    intent.putExtra("MonID",objectId);
+                                                    intent.putExtra("IdCreationPartie", task.getResult().get_id());
+                                                    intent.putExtra("joueur1",task.getResult().getIdCreateur());
+                                                    intent.putExtra("joueur2",objectId);
+                                                    intent.putExtra("Pseudo",pseudo);
+                                                    startActivity(intent);
+                                                } else {
+                                                    Log.e("app", "failed to update document with: ", task2.getException());
+                                                }
+                                            }
+                                        });
+
+                                    }else{
+                                        erreurCode.setText("La partie est deja lancée" );
+                                        erreurCode.setVisibility(View.VISIBLE);
+                                    }
+
+                                } else {
+                                    Log.e("app", "Failed to findOne: ", task.getException());
+                                }
+                            }else{
                                 erreurCode.setText("Le code "+codeRejoindre.getText()+" est faux" );
                                 erreurCode.setVisibility(View.VISIBLE);
                             }
-                            else if (task.isSuccessful()) {
-                                if(!task.getResult().isValide()){
-                                    Document filterDoc = new Document().append("_id", task.getResult().get_id());
-                                    Document updateDoc = new Document().append("$set",
-                                            new Document()
-                                                    .append("idJoueur", objectId)
-                                                    .append("valide", true)
-                                    );
 
-                                    final Task<RemoteUpdateResult> updateTask =
-                                            creationPartie.updateOne(filterDoc, updateDoc);
-                                    updateTask.addOnCompleteListener(new OnCompleteListener <RemoteUpdateResult> () {
-                                        @Override
-                                        public void onComplete(@NonNull Task <RemoteUpdateResult> task2) {
-                                            if (task2.isSuccessful()) {
-                                                ObjectId id1 = new ObjectId();
-                                                creerJeu(id1,task.getResult().get_id(),task.getResult().getIdCreateur(),objectId);
-                                                Intent intent = new Intent(RejoindrePartie.this,Jeu.class);
-                                                intent.putExtra("MonID",objectId);
-                                                intent.putExtra("IdCreationPartie", task.getResult().get_id());
-                                                intent.putExtra("joueur1",task.getResult().getIdCreateur());
-                                                intent.putExtra("joueur2",objectId);
-                                                intent.putExtra("Pseudo",pseudo);
-                                                startActivity(intent);
-                                            } else {
-                                                Log.e("app", "failed to update document with: ", task2.getException());
-                                            }
-                                        }
-                                    });
-
-                                }else{
-                                    erreurCode.setText("La partie est deja lancée" );
-                                    erreurCode.setVisibility(View.VISIBLE);
-                                }
-
-                            } else {
-                                Log.e("app", "Failed to findOne: ", task.getException());
-                            }
                         }
                     });
 
