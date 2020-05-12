@@ -142,7 +142,7 @@ public class gagner extends AppCompatActivity {
 
     private Task<Partie> getPartie(ObjectId objectId){
         Document doc = new Document();
-        doc.append("idCreationPartie",objectId);
+        doc.append("_id",objectId);
 
         return partie.findOne(doc);
     }
