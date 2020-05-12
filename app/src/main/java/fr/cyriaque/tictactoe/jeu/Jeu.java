@@ -284,7 +284,7 @@ public class Jeu extends AppCompatActivity {
                             Intent intent = new Intent(Jeu.this, gagner.class);
                             intent.putExtra("egalite","oui");
                             intent.putExtra("IDPARTIE",partie.get_Id());
-                            intent.putExtra("monID",monID);
+                            intent.putExtra("MonID",monID);
                             intent.putExtra("Pseudo",pseudo);
                             startActivity(intent);
                         }
@@ -295,7 +295,7 @@ public class Jeu extends AppCompatActivity {
                         Intent intent = new Intent(Jeu.this, gagner.class);
                         intent.putExtra("egalite","non");
                         intent.putExtra("IDPARTIE",partie.get_Id());
-                        intent.putExtra("monID",monID);
+                        intent.putExtra("MonID",monID);
                         intent.putExtra("Pseudo",pseudo);
                         startActivity(intent);
                     }
