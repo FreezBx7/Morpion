@@ -157,6 +157,7 @@ public class Jeu extends AppCompatActivity {
             pseudo = (String) savedInstanceState.getSerializable("Pseudo");
         }
         Log.d("app",monID.toString() + " / " +IdCreationPartie.toString());
+        Log.d("app","joueur 1 : " + joueur1 + " joueur2 :  " +joueur2);
         getPartie(IdCreationPartie).addOnCompleteListener(new OnCompleteListener<Partie>() {
             @Override
             public void onComplete(@NonNull Task<Partie> task) {
