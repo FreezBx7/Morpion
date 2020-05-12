@@ -92,6 +92,10 @@ public class gagner extends AppCompatActivity {
             pseudo = (String) savedInstanceState.getSerializable("Pseudo");
             egalite = (String) savedInstanceState.getSerializable("egalite");
         }
+        Log.d("app", "mon Id : "+monID);
+        Log.d("app", "IdPArtie : "+IdPartie);
+        Log.d("app", "pseudo : "+pseudo);
+        Log.d("app", "egalite : "+egalite);
         getPartie(IdPartie).addOnCompleteListener(new OnCompleteListener<Partie>() {
             @Override
             public void onComplete(@NonNull Task<Partie> task) {
@@ -113,16 +117,10 @@ public class gagner extends AppCompatActivity {
                         }
                     }
 
-                    retour.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            deletePartie(task.getResult());
-                            deleteCreationPartie(task.getResult());
-                            Intent intent = new Intent(gagner.this, Menu.class);
-                            intent.putExtra("Pseudo",pseudo);
-                            startActivity(intent);
-                        }
-                    });
+                    deletePartie(task.getResult());
+                    deleteCreationPartie(task.getResult());
+
+
 
                 } else {
                     Log.e("app", "Failed to findOne: ", task.getException());
@@ -130,7 +128,15 @@ public class gagner extends AppCompatActivity {
             }
 
         });
+        retour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent intent = new Intent(gagner.this, Menu.class);
+                intent.putExtra("Pseudo",pseudo);
+                startActivity(intent);
+            }
+        });
 
 
     }
