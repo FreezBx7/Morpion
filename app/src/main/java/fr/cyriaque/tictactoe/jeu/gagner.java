@@ -2,6 +2,7 @@ package fr.cyriaque.tictactoe.jeu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,10 +11,13 @@ import android.widget.TextView;
 
 import org.bson.types.ObjectId;
 
+import java.util.Objects;
+
 import fr.cyriaque.tictactoe.R;
 
 public class gagner extends AppCompatActivity {
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +50,13 @@ public class gagner extends AppCompatActivity {
             egalite = (String) savedInstanceState.getSerializable("egalite");
         }
 
+        assert egalite != null;
         if(egalite.equals("oui")){
             finalText.setText("EGALITE");
         }else{
-            if(monID.equals(IDWiner)){
+            if (Objects.equals(monID, IDWiner)) {
                 finalText.setText("Felicitation, tu as gagné !");
-            }else{
+            } else {
                 finalText.setText("Dommage, tu as perdu !");
 
             }

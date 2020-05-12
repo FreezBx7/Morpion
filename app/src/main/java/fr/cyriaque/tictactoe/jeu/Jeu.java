@@ -248,6 +248,7 @@ public class Jeu extends AppCompatActivity {
     public void principalJeu(Partie partie, TextView TourDeQui, final ObjectId monID,String pseudo){
 
                     if(!gagner(partie)){
+                        if(!egaliter(partie)){
                             getJoueur(partie.getJoueur()).addOnSuccessListener(item -> {
                                 TourDeQui.setText(item.getPseudo());});
 
@@ -270,6 +271,17 @@ public class Jeu extends AppCompatActivity {
                                 Log.e("app","C'EST PAS A MOI DE JOUER mon id : "+ monID + " l'autre id : " + partie.getJoueur());
                                 getPlateauAttente(partie);
                             }
+                        }else{
+                            deleteCreationPartie(partie);
+                            deletePartie(partie);
+                            Intent intent = new Intent(Jeu.this, gagner.class);
+                            intent.putExtra("egalite","oui");
+                            intent.putExtra("winer",partie.getJoueur());
+                            intent.putExtra("monID",monID);
+                            intent.putExtra("Pseudo",pseudo);
+                            startActivity(intent);
+                        }
+
 
                     }else {
                         deleteCreationPartie(partie);
@@ -558,9 +570,9 @@ public class Jeu extends AppCompatActivity {
         return verif;
     }
     public boolean egaliter(Partie partie){
-        boolean verif = false;
-        if(partie.getCase1() != 0 || partie.getCase2() != 0 || partie.getCase3() != 0 || partie.getCase4() != 0 || partie.getCase5() != 0 || partie.getCase6() != 0 || partie.getCase7() != 0 || partie.getCase8() != 0 || partie.getCase9() != 0){
-            verif = true;
+        boolean verif = true;
+        if(partie.getCase1() == 0 || partie.getCase2() == 0 || partie.getCase3() == 0 || partie.getCase4() == 0 || partie.getCase5() == 0 || partie.getCase6() == 0 || partie.getCase7() == 0 || partie.getCase8() == 0 || partie.getCase9() == 0){
+            verif = false;
         }
         return verif;
     }
