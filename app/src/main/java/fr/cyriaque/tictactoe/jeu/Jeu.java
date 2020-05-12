@@ -224,17 +224,25 @@ public class Jeu extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Partie> task) {
 
-                                if (!task.getResult().getIdCreationPartie().equals(IdCreationPartie)) {
-                                    Log.e("app", "Aucunne partie de trouvé a corriger absolument");
+                                if(task.getResult() != null){
+                                    if (!task.getResult().getIdCreationPartie().equals(IdCreationPartie)) {
+                                        Log.e("app", "Aucunne partie de trouvé a corriger absolument");
+                                        Intent intent = new Intent(Jeu.this, Menu.class);
+                                        intent.putExtra("Pseudo",pseudo);
+                                        startActivity(intent);
+                                    } else if (task.isSuccessful()) {
+                                        principalJeu(task.getResult(),TourDeQui,monID,pseudo);
+
+                                    } else {
+                                        Log.e("app", "Failed to findOne: ", task.getException());
+                                    }
+                                }else{
                                     Intent intent = new Intent(Jeu.this, Menu.class);
                                     intent.putExtra("Pseudo",pseudo);
                                     startActivity(intent);
-                                } else if (task.isSuccessful()) {
-                                    principalJeu(task.getResult(),TourDeQui,monID,pseudo);
-
-                                } else {
-                                    Log.e("app", "Failed to findOne: ", task.getException());
                                 }
+
+
                             }
                         });
 

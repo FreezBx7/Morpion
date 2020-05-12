@@ -55,9 +55,10 @@ public class gagner extends AppCompatActivity {
             finalText.setText("EGALITE");
         }else{
             if (Objects.equals(monID, IDWiner)) {
-                finalText.setText("Felicitation, tu as gagné !");
-            } else {
                 finalText.setText("Dommage, tu as perdu !");
+
+            } else {
+                finalText.setText("Felicitation, tu as gagné !");
 
             }
         }
