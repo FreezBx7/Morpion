@@ -71,17 +71,21 @@ public class attenteJoueur extends AppCompatActivity {
         TextView codeRejoindre = findViewById(R.id.codeRejoindre2);
         ObjectId partieID;
         String pseudo;
+        ObjectId userId;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
                 partieID = null;
+                userId = null;
                 pseudo = "";
             } else {
                 partieID = (ObjectId) extras.get("PartieID");
+                userId = (ObjectId) extras.get("UserID");
                 pseudo = extras.getString("Pseudo");
             }
         } else {
             partieID = (ObjectId) savedInstanceState.getSerializable("PartieID");
+            userId = (ObjectId) savedInstanceState.getSerializable("UserID");
             pseudo = (String) savedInstanceState.getSerializable("Pseudo");
         }
         if(partieID != null){
@@ -124,6 +128,7 @@ public class attenteJoueur extends AppCompatActivity {
                 deletePartie(partieID);
                 Intent intent = new Intent(attenteJoueur.this,Menu.class);
                 intent.putExtra("Pseudo",pseudo);
+                intent.putExtra("UserID",userId);
                 startActivity(intent);
             }
         });

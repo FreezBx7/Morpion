@@ -94,6 +94,7 @@ public class Menu extends AppCompatActivity {
                 Log.e("app","ID DE LA PARTIE :"+objectIdPartie);
                 Intent intent2 = new Intent(Menu.this,attenteJoueur.class);
                 intent2.putExtra("PartieID",objectIdPartie);
+                intent2.putExtra("UserID",objectId);
                 intent2.putExtra("Pseudo",pseudo);
                 startActivity(intent2);
             }
