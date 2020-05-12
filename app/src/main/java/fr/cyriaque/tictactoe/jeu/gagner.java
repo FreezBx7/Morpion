@@ -100,9 +100,7 @@ public class gagner extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Partie> task) {
 
-                if (!task.getResult().getIdCreationPartie().equals(IdPartie)) {
-
-                } else if (task.isSuccessful()) {
+                if (task.isSuccessful()) {
 
                     assert egalite != null;
                     if(egalite.equals("oui")){
@@ -116,9 +114,17 @@ public class gagner extends AppCompatActivity {
 
                         }
                     }
+                    retour.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            deletePartie(task.getResult());
+                            deleteCreationPartie(task.getResult());
+                            Intent intent = new Intent(gagner.this, Menu.class);
+                            intent.putExtra("Pseudo",pseudo);
+                            startActivity(intent);
+                        }
+                    });
 
-                    deletePartie(task.getResult());
-                    deleteCreationPartie(task.getResult());
 
 
 
@@ -128,15 +134,7 @@ public class gagner extends AppCompatActivity {
             }
 
         });
-        retour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Intent intent = new Intent(gagner.this, Menu.class);
-                intent.putExtra("Pseudo",pseudo);
-                startActivity(intent);
-            }
-        });
 
 
     }
