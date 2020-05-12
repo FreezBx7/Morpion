@@ -121,6 +121,7 @@ public class gagner extends AppCompatActivity {
                             deleteCreationPartie(task.getResult());
                             Intent intent = new Intent(gagner.this, Menu.class);
                             intent.putExtra("Pseudo",pseudo);
+                            intent.putExtra("UserID",monID);
                             startActivity(intent);
                         }
                     });

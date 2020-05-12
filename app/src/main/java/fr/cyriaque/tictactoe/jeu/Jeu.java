@@ -230,6 +230,7 @@ public class Jeu extends AppCompatActivity {
                                         Log.e("app", "Aucunne partie de trouvé a corriger absolument");
                                         Intent intent = new Intent(Jeu.this, Menu.class);
                                         intent.putExtra("Pseudo",pseudo);
+                                        intent.putExtra("UserID",monID);
                                         startActivity(intent);
                                     } else if (task.isSuccessful()) {
                                         principalJeu(task.getResult(),TourDeQui,monID,pseudo);
@@ -240,6 +241,7 @@ public class Jeu extends AppCompatActivity {
                                 }else{
                                     Intent intent = new Intent(Jeu.this, Menu.class);
                                     intent.putExtra("Pseudo",pseudo);
+                                    intent.putExtra("UserID",monID);
                                     startActivity(intent);
                                 }
 
